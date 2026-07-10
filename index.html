@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor Health Monitoring System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div id="chart-modal" class="modal hidden">
+        <div class="modal-content">
+            <span id="close-modal" class="close-btn">&times;</span>
+            <h2 id="modal-chart-title">กราฟแสดงข้อมูล</h2>
+            <div class="modal-chart-container">
+                <canvas id="modalChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <header class="system-header">
+            <div class="logo-wrapper">
+                <span id="system-gear-icon" class="gear-icon status-gear-normal">⚙️</span>
+                <h1>Motor Health Monitoring System</h1>
+            </div>
+            <div id="system-status-text" class="status-text-normal">ระบบทำงานปกติ (System Normal)</div>
+        </header>
+
+        <section class="control-panel">
+            <h2>ควบคุมมอเตอร์</h2>
+            <div class="status-box">
+                สถานะปัจจุบัน: <span id="motor-status" class="status-off">กำลังโหลด...</span>
+            </div>
+            <div class="btn-group">
+                <button id="btn-on" class="btn btn-success">เปิดมอเตอร์ (ON)</button>
+                <button id="btn-off" class="btn btn-danger">ปิดมอเตอร์ (OFF)</button>
+            </div>
+        </section>
+
+        <section class="monitor-grid">
+            <div class="card card-clickable" id="card-rpm" data-type="rpm">
+                <h3>🔄 ความเร็วรอบ (RPM)</h3>
+                <div class="value"><span id="val-rpm">0.0</span> <span class="unit">RPM</span></div>
+                <div class="click-hint">คลิกเพื่อดูกราฟ 📊</div>
+            </div>
+
+            <div class="card card-clickable" id="card-current" data-type="current">
+                <h3>⚡ กระแสไฟฟ้า</h3>
+                <div class="value"><span id="val-current">0.00</span> <span class="unit">A</span></div>
+                <div class="click-hint">คลิกเพื่อดูกราฟ 📊</div>
+            </div>
+
+            <div class="card card-clickable" id="card-temp" data-type="temperature">
+                <h3>🌡️ อุณหภูมิ</h3>
+                <div class="value"><span id="val-temp">N/A</span> <span class="unit">°C</span></div>
+                <div class="click-hint">คลิกเพื่อดูกราฟ 📊</div>
+            </div>
+
+            <div class="card card-clickable" id="card-vib" data-type="vibration">
+                <h3>🫨 แรงสั่นสะเทือน</h3>
+                <div class="value"><span id="val-vib">N/A</span> <span class="unit">m/s²</span></div>
+                <div class="click-hint">คลิกเพื่อดูกราฟ 📊</div>
+            </div>
+
+            <div class="card full-width">
+                <h3>📊 จำนวนพัลส์สะสม (Total Count)</h3>
+                <div class="value"><span id="val-total">0</span> <span class="unit">ครั้ง</span></div>
+                <small>อัปเดตล่าสุด: <span id="val-time">-</span></small>
+            </div>
+
+            <div class="card full-width log-card">
+                <h3>🚨 บันทึกเหตุการณ์และความผิดปกติล่าสุด (Event Logs)</h3>
+                <div class="table-container">
+                    <table class="log-table">
+                        <thead>
+                            <tr>
+                                <th>เวลาที่เกิด</th>
+                                <th>ประเภทเหตุการณ์</th>
+                                <th>รายละเอียดความผิดปกติ</th>
+                                <th>ระดับความรุนแรง</th>
+                            </tr>
+                        </thead>
+                        <tbody id="log-tbody">
+                            <tr id="no-log-row"><td colspan="4" style="text-align: center; color: var(--text-secondary);">ยังไม่มีประวัติความผิดปกติในขณะนี้</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
